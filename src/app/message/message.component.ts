@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { ConfigService } from '../_services/config.service';
 
 @Component({
@@ -6,10 +6,11 @@ import { ConfigService } from '../_services/config.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit {
+  message: string = "not set";
   constructor(private configService: ConfigService) {}
 
-  getMessage(): string {
-    return this.configService.getMessage()
+  ngOnInit() {
+    this.configService.getMessage().subscribe(resp => this.message = resp);
   }
 }
